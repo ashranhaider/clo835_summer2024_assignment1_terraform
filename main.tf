@@ -22,6 +22,38 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   ingress {
+    description = "my_app_port"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "my_app_port"
+    from_port   = 8081
+    to_port     = 8081
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "my_app_port"
+    from_port   = 8082
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "my_app_port"
+    from_port   = 8083
+    to_port     = 8083
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     description = "HTTP"
     from_port   = 80
     to_port     = 80
@@ -49,6 +81,8 @@ resource "aws_instance" "my_instance" {
   security_groups = [
     aws_security_group.ec2_sg.name
   ]
+
+  user_data = file("./init-script.sh")
 
   tags = {
     Name = "MyEC2Instance"
